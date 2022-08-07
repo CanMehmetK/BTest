@@ -48,3 +48,14 @@ BET recruitment.
 
 Good luck.
 
+Check **appsettings.json** **DefaultConnection**
+
+Dev: Start BTest.SPA project
+
+or **run publish command**
+
+dotnet publish -p:PublishProfile=FolderProfile
+
+start bin/Release/net6.0/publish/BTest.SPA.exe
+
+or bin/Release/net6.0/publish/BTest.SPA.dll ;) 
