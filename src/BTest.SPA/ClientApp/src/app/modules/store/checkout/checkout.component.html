@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-9">
+    <app-chart></app-chart>
+  <br>
+    <div *ngIf="_authService.loggedIn">
+      Assuming you have saved address, credit card, etc...
+
+    </div>
+    <div *ngIf="!_authService.loggedIn">
+      Please <a routerLink="/login">Login</a> for completing order
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="form-check">
+      <input [(ngModel)]="aggrement" class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">
+        Aggrement
+      </label>
+    </div>
+   <button [disabled]="!aggrement || posting || !_authService.loggedIn" class="btn btn-primary" (click)="sendOrder()">Order</button>
+    <p *ngFor="let m of orderStepMessage">{{m}}</p>
+  </div>
+</div>
+

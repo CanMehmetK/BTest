@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-3">
+    <product-filter></product-filter>
+    <app-chart></app-chart>
+    <div class="row">
+      <button (click)="emptyCart()" [disabled]="_storeService.cart.cartItems.length == 0" class="btn btn-sm" id="empty">Empty Cart</button>
+
+      <button [disabled]="_storeService.cart.cartItems.length == 0 || !_storeService.cart.isCartValid()" class="btn btn-sm" id="checkout" routerLink="/store/checkout">Go to Checkout..</button>
+
+    </div>
+
+  </div>
+  <div class="col-9">
+
+    Page size: <select (change)="onPageSizeChange()" [(ngModel)]="_storeService.pageSize" id="pageSize">
+    <option value="3">3</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="50">50</option>
+  </select> <br/>
+
+
+    <div *ngIf="_storeService.products.length>0">
+      <div  class="product-results">
+        <div class="card "  *ngFor="let item of _storeService.products;">
+          <img src="{{_imagesUrl}}{{ (item.image !== undefined)? item.image : 'noimage.png' }}"/>
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}} </h5>
+            <p class="card-text">{{item.description}}</p>
+
+            <div class="row">
+              <div class="card-subtitle mb-2 text-muted col-4">${{item.price}}</div>
+              <div class="col-8">({{item.quantity}})
+                <button (click)="addToCart(item)" class="btn btn-success">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div *ngIf="_storeService.products.length == 0" class="card-body">
+      No products were found
+    </div>
+
+    <ngb-pagination (pageChange)="onPageChange($event)" [(page)]="_storeService.page" [collectionSize]="_storeService.count" [pageSize]="_storeService.pageSize"></ngb-pagination>
+  </div>
+</div>
+
+
+

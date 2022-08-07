@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="modal-header">
+    <h5 class="modal-title">Products Filtering</h5>
+  </div>
+  <div class="modal-body">
+    <strong> name:</strong><input #searchBox [(ngModel)]="tempFilter.name" id="searchbox" type="text"/><br/> <strong> category:</strong>
+    <ul>
+      <li *ngFor="let cat of categories" style="list-style-type:none;">
+        <input (change)="onChange()" [(ngModel)]="cat.selected" id={{cat.name}} type="checkbox"/>{{cat.name}}
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button (click)="onFilterChanged()" class="btn btn-outline-dark" id="update" type="button">Update Filter</button>
+  </div>
+</div>

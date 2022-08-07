@@ -1,0 +1,2 @@
+﻿add-migration -context DatabaseContext -o C:\sil\B-Test\src\BTest.Migrations\Migrations
+update-database -context DatabaseContext

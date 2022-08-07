@@ -1,0 +1,45 @@
+<h2>Registration</h2>
+<div class="card">
+  <div class="card-body" id="cartBody">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="email">Email:</label>
+          <input type="text" formControlName="email" class="form-control form-control-sm"
+                 [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.email.errors }"/>
+          <div *ngIf="registrationForm.get('email').invalid && (registrationForm.get('email').dirty || registrationForm.get('email').touched)"
+               class="text-danger">
+            <div *ngIf="registrationForm.controls.email.errors?.required">Email is required</div>
+            <div *ngIf="registrationForm.controls.email.errors?.email">Email must be a valid email address</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="password">Password:</label>
+          <input type="password" formControlName="password" class="form-control form-control-sm"
+                 [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.password.errors }"/>
+          <div *ngIf="registrationForm.get('password').invalid && (registrationForm.get('password').dirty || registrationForm.get('password').touched)"
+               class="text-danger">
+            <div *ngIf="registrationForm.controls.password.errors?.required">Password is required</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-2">
+          <label for="confirmPassword">Confirm password:</label>
+          <input type="password" formControlName="confirmPassword" class="form-control form-control-sm"
+                 [ngClass]="{ 'is-invalid': submitted && registrationForm.controls.confirmPassword.errors && registrationForm?.errors?.passwordsMustMatch }"/>
+          <div *ngIf="(registrationForm.get('confirmPassword').invalid || registrationForm?.errors?.passwordsMustMatch) && (registrationForm.get('confirmPassword').dirty || registrationForm.get('confirmPassword').touched)"
+               class="text-danger">
+            <div *ngIf="registrationForm.controls.confirmPassword.errors?.required">Confirm Password is required</div>
+            <div *ngIf="registrationForm?.errors?.passwordsMustMatch">Passwords must match</div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="!registrationForm.valid">Register</button>
+
+      <a *ngIf="verificationUrl" [attr.href]="verificationUrl">Click to complete mail confirmation</a>
+    </form>
+  </div>
+</div>

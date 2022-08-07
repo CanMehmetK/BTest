@@ -1,0 +1,30 @@
+.product-results {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  .card {
+    width: 240px;
+    height: 260px;
+    flex: 0 0 auto;
+    margin: 2px;
+
+    img {
+      max-height: 132px
+    }
+
+    .btn {
+      font-size: 12px;
+    }
+  }
+
+}
+
+.product-results:after {
+  display: block;
+  margin: 2px;
+  flex: 999 999 auto;
+}

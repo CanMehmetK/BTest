@@ -1,0 +1,29 @@
+<div class="card" >
+  <h5>Cart</h5>
+  <table class="table table-striped table-hover">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+      <th scope="col">&nbsp;</th>
+    </tr>
+    <tr *ngFor="let item of _storeService.cart.cartItems">
+      <th scope="row">{{item.product.name}}</th>
+      <td>{{item.product.price}}</td>
+      <td>
+        <input (change)="onQuantityChange($event, item.product.id)" [ngModel]="item.quantity" class="form-control" style="max-width: 100px" min="0" size="2" type="number"/></td>
+      <td>{{item.product.price * item.quantity}}</td>
+      <td>
+        <button (click)="removeFromCart(item)" class="btn  btn-sm" id="remove" type="button">Remove</button>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td style="text-align: end">&nbsp;Total:</td>
+      <td style="font-weight: bold">{{_storeService.cart.totalValue}}</td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+
+</div>
