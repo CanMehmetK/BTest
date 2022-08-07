@@ -1,4 +1,4 @@
-[![.NET Core](https://github.com/CanMehmetK/B-Test/workflows/.NET%20Core/badge.svg)](https://github.com/CanMehmetK/B-Test/actions)
+[![.NET Core](https://github.com/CanMehmetK/BTest/workflows/.NET%20Core/badge.svg)](https://github.com/CanMehmetK/B-Test/actions)
 
 ## Bet Test 
 
