@@ -59,3 +59,9 @@ dotnet publish -p:PublishProfile=FolderProfile
 start bin/Release/net6.0/publish/BTest.SPA.exe
 
 or bin/Release/net6.0/publish/BTest.SPA.dll ;) 
+
+1.
+2.
+3.
+4. ![Proper database design](https://raw.githubusercontent.com/CanMehmetK/BTest/main/database.jpg)
+5. 
