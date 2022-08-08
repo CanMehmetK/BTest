@@ -39,6 +39,7 @@ export class CheckoutComponent implements OnInit {
           this.orderStepMessage[1] = "Creating Order [Done] :)";
           this._toastr.success(`Your Order #${response.data.id} created and email sent to you`);
           this._storeService.cart.emptyCart();
+          this._storeService.getMyOrders();
           setTimeout(() => {
             this._router.navigate(['store']).then();
           }, 500)

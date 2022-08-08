@@ -18,8 +18,6 @@ export class ProductService {
   }
 
   getItems(page: number, pageSize: number, filter: Filter): Observable<ProductPayload> {
-
-
     let params = new HttpParams()
       .set("name", filter.name)
       .set("pageNumber", page.toString())

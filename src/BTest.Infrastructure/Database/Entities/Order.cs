@@ -15,6 +15,7 @@ public class OrderConfig : IEntityTypeConfiguration<Order>
   public void Configure(EntityTypeBuilder<Order> builder)
   {
     builder.ToTable("Orders");
+    builder.Property<DateTime>("CreateUTC");
     builder.Property(c => c.TotalValue).HasPrecision(18, 2);
     builder.HasMany<OrderDetail>(g => g.OrderDetails)
       .WithOne(s => s.Order)

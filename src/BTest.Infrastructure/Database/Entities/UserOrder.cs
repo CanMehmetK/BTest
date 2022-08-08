@@ -20,7 +20,7 @@ public class UserOrderConfig : IEntityTypeConfiguration<UserOrder>
     builder.HasKey(bc => new { bc.UserId, bc.OrderId });
 
     builder.HasOne<ApplicationUser>(bc => bc.ApplicationUser)
-        .WithMany()
+        .WithMany(m=>m.UserOrders)
         .HasForeignKey(bc => bc.UserId);
 
     builder.HasOne<Order>(bc => bc.Order)

@@ -3,7 +3,7 @@ import {skip} from "rxjs";
 
 import {ProductService} from "app/services/product.service";
 import {StoreService} from "app/services/store.service";
-import {CartItem} from "../../../models/cart-item";
+import {CartItem} from "app/models/cart-item";
 
 @Component({
   selector: 'app-items',

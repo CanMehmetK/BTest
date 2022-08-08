@@ -12,6 +12,8 @@ const providers = [
   {provide: 'BASE_URL', useFactory: getBaseUrl, deps: []},
   {
     provide: 'IMAGES_URL', useFactory: () => {
+      if (document.getElementsByTagName('base')[0].href.indexOf('5001') > -1)
+        return 'https://localhost:5001/images/products/'
       return 'https://localhost:7263/images/products/'
     }
   }

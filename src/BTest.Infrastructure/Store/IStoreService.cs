@@ -8,4 +8,5 @@ public interface IStoreService
   Task<List<CategoryDTO>> GetCategories();
   Task<Payload<ProductDTO>> GetProducts(ProductQueryStringParameter qsParameter);
   Task<OrderDTO> CreateOrder(ClaimsPrincipal User, OrderDTO orderDto);
+  Task<List<OrderDTO>> MyOrders(ClaimsPrincipal User, OrderFilterDTO orderFilterDto);
 }

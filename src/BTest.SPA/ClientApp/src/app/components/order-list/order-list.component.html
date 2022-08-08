@@ -1,0 +1,11 @@
+
+  <div *ngFor="let myOrder of _storeService.myOrders$ | async;" class="card">
+    #{{myOrder.id}}
+
+    <div *ngFor="let orderDetail of myOrder.orderDetails;">
+      {{orderDetail.productName}}   {{orderDetail.quantity}}x{{orderDetail.unitPrice}}={{orderDetail.totalPrice}}
+
+    </div>
+    Total:{{myOrder.totalValue}}
+  </div>
+

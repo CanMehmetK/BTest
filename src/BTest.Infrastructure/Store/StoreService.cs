@@ -58,15 +58,29 @@ public class StoreService : IStoreService
 
     var order = _mapper.Map<OrderDTO, Order>(orderDto);
     order.UserOrders = new List<UserOrder>() { new UserOrder() { UserId = userid } };
-    
+
     // Check Stock Amount ... Available ...
-    
+
     var newOrder = _mapper.Map<Order, OrderDTO>(await _orepository.InsertAsync(order));
-    
+
     // Set Stock Amount
 
     // Email service send Order notify email...
 
     return newOrder;
+  }
+
+  public async Task<List<OrderDTO>> MyOrders(ClaimsPrincipal User, OrderFilterDTO orderFilterDto)
+  {
+    var userid = int.Parse(User.FindFirstValue("uid"));
+    var query = _orepository.context.Set<UserOrder>()
+      .Where(t=>t.UserId == userid)
+      .Include(uo => uo.Order)
+      .ThenInclude(o => o.OrderDetails)
+      .ThenInclude(o=>o.Product)
+      .Select(t=>t.Order)
+      ;
+    var result = _mapper.Map<List<Order>, List<OrderDTO>>(await query.ToListAsync());
+    return result;
   }
 }

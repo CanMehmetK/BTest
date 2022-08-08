@@ -9,6 +9,7 @@ import {ProductComponent} from './product/product.component';
 import {FilterComponent} from "app/components/product-filter/filter.component";
 import {ChartComponent} from "app/components/chart/chart.component";
 import {CheckoutComponent} from './checkout/checkout.component';
+import {OrderListComponent} from "app/components/order-list/order-list.component";
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
     ProductComponent,
     FilterComponent,
     ChartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    OrderListComponent
   ],
   imports: [
     CommonModule,

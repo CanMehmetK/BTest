@@ -40,8 +40,16 @@ export class StoreService {
   private readonly _order = new BehaviorSubject<Order>(new Order());
   readonly order$ = this._order.asObservable();
 
+  private readonly _myOrders = new BehaviorSubject<Order[]>([]);
+
+
   constructor(private _httpClient: HttpClient) {
     this.getAllCategories();
+    this.getMyOrders();
+  }
+
+  get myOrders$() {
+    return this._myOrders.asObservable();
   }
 
   get categories(): Category[] {
@@ -124,10 +132,10 @@ export class StoreService {
       orderDetail.productId = cartItem.product.id;
       orderDetail.quantity = cartItem.quantity;
       orderDetail.unitPrice = cartItem.product.price;
-      orderDetail.totalPrice = this.round( cartItem.quantity * cartItem.product.price)
+      orderDetail.totalPrice = this.round(cartItem.quantity * cartItem.product.price)
       return orderDetail;
     });
-    return this._httpClient.post('api/store/create-order', order)
+    return this._httpClient.post('api/store/create-order', order);
 
   }
 
@@ -143,4 +151,10 @@ export class StoreService {
       })
   }
 
+  public getMyOrders() {
+    this._httpClient.post('api/store/my-orders', {})
+      .subscribe((response: any) => {
+      this._myOrders.next(response.data);
+      })
+  }
 }

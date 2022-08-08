@@ -32,5 +32,11 @@ public class StoreController : ControllerBase
   [Authorize]
   [HttpPost("create-order")]
   public async Task<BaseResponse<OrderDTO>> CreateOrder([FromBody] OrderDTO orderDto) =>
-      new BaseResponse<OrderDTO>(await _storeService.CreateOrder(User, orderDto)); 
+      new BaseResponse<OrderDTO>(await _storeService.CreateOrder(User, orderDto));
+
+
+  [Authorize]
+  [HttpPost("my-orders")]
+  public async Task<BaseResponse<List<OrderDTO>>> MyOrders([FromBody] OrderFilterDTO orderFilterDto) =>
+      new BaseResponse<List<OrderDTO>>(await _storeService.MyOrders(User, orderFilterDto));
 }
