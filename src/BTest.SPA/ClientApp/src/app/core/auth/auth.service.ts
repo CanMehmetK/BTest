@@ -124,7 +124,8 @@ export class AuthService {
   }
 
 
-  check(): Observable<boolean> {
+  check(roles:string[]=undefined): Observable<boolean> {
+    console.log(roles)
     // Check if the user is logged in
     if (this._authenticated) {
       return of(true);

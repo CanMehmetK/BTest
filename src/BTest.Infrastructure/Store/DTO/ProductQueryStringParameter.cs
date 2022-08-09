@@ -16,5 +16,6 @@ public class ProductQueryStringParameter
     set { _pageSize = (value > maxPageSize) ? maxPageSize : value; }
   }
   public string? Name { get; set; }
+  public int? Id { get; set; }
   public List<int>? Categories { get; set; }
 }

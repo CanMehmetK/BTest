@@ -36,6 +36,9 @@ public class StoreService : IStoreService
       .Include(p => p.Stock)
       .OrderBy(t => t.Id);
 
+    if (qsParameter.Id != null && qsParameter.Id > 0)
+      query = query.Where(item => item.Id == qsParameter.Id);
+
     if (!string.IsNullOrEmpty(qsParameter.Name))
       query = query.Where(item => item.Name.ToLower().Contains(qsParameter.Name.Trim().ToLower()));
 
@@ -43,6 +46,7 @@ public class StoreService : IStoreService
       query = query.Where(p => qsParameter.Categories.Contains(p.CategoryId));
 
     int count = await query.CountAsync();
+
     query = query
       .Skip((qsParameter.PageNumber - 1) * qsParameter.PageSize)
       .Take(qsParameter.PageSize);
@@ -74,11 +78,11 @@ public class StoreService : IStoreService
   {
     var userid = int.Parse(User.FindFirstValue("uid"));
     var query = _orepository.context.Set<UserOrder>()
-      .Where(t=>t.UserId == userid)
+      .Where(t => t.UserId == userid)
       .Include(uo => uo.Order)
       .ThenInclude(o => o.OrderDetails)
-      .ThenInclude(o=>o.Product)
-      .Select(t=>t.Order)
+      .ThenInclude(o => o.Product)
+      .Select(t => t.Order)
       ;
     var result = _mapper.Map<List<Order>, List<OrderDTO>>(await query.ToListAsync());
     return result;

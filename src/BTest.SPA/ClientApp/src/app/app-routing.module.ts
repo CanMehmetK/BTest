@@ -43,7 +43,16 @@ const routes: Routes = [
       {
         path: 'logout',
         loadChildren: () => import('app/modules/auth/logout/logout.module').then(m => m.AuthLogoutModule)
-      }
+      },
+      {
+        path: 'admin',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        data: {
+          roles: ['SuperAdmin','Admin']
+        },
+        loadChildren: () => import('app/modules/admin/admin.module').then(m => m.AdminModule)
+      },
     ]
   },
   {
