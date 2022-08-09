@@ -20,10 +20,12 @@ if (!app.Environment.IsDevelopment())
   app.UseHsts();
 }
 
-
+app.UseCors("corsapp");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+
+
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -21,7 +21,6 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this._storeService.filter$
       .pipe(skip(1))    //skip getting filter at component creation
       .subscribe(filter => {

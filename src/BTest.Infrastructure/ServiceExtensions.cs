@@ -6,6 +6,7 @@ using BTest.Infrastructure.Identity.Entities;
 using BTest.Infrastructure.Models;
 using BTest.Infrastructure.Store;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,12 @@ public static class ServiceExtensions
 
     services.Configure<JWTSettings>(configuration.GetSection(nameof(JWTSettings)));
 
-    services.AddDbContext<ApplicationDbContext>(options => 
+    services.AddCors(p => p.AddPolicy("corsapp", builder =>
+     {
+       builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+     }));
+
+    services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
       b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 

@@ -1,1 +1,19 @@
-<router-outlet></router-outlet>
+<div class="row">
+  <div class="col-3">
+    <div class="card">
+      <div class="card-header">Product</div>
+      <div>
+        <a routerLink="/admin/product/list">Product List</a>
+      </div>
+      <div>
+        <a routerLink="/admin/product/edit">Product Add</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="card" style="padding: 10px;">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+

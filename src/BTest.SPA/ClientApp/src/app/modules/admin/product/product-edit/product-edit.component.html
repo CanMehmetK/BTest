@@ -1,1 +1,42 @@
-<p>product-edit works!</p>
+
+<form [formGroup]="productForm">
+  <div class="card">
+    <div class="card-header">Product</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-6">
+          Product Id: {{productId}}
+          <div class="col-md-12">
+            <label class="form-label" for="id_name">Name</label>
+            <input [class.is-invalid]="productForm.value.name.touched && productForm.value.invalid"
+                   class="form-control"
+                   formControlName="name" id="id_name" type="text">
+            <div *ngIf="productForm.value.invalid && productForm.value.touched">
+              <div *ngIf="productForm.value.errors?.required" class="d-block invalid-feedback">Please provide a Name.</div>
+              <div *ngIf="productForm.value.errors?.name" class="d-block invalid-feedback">Name is not valid</div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label class="form-label" for="id_description">Description</label> <input class="form-control" formControlName="description" id="id_description"/>
+          </div>
+          <div class="col-md-12">
+            <label class="form-label" for="id_price">Price</label> <input class="form-control" formControlName="price" id="id_price"/>
+          </div>
+
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-md-12">
+              <img [src]="getImageBase64()" style="max-width: 100%;">
+              <input (change)="onFileSelected($event)" accept="*.jpb,*.png" id="productImageFile" type="file">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </div>
+
+</form>

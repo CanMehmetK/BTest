@@ -1,1 +1,19 @@
 <p>product-list works!</p>
+<div *ngFor="let product of products;" class="card ">
+  <div class="row">
+    <div class="col-2">
+      <img src="{{_imagesUrl}}{{ (product.image !== undefined)? product.image : 'noimage.png' }}" style="width: 100px"/>
+    </div>
+    <div class="col">
+      {{product.name}}<br>{{product.description}}
+    </div>
+    <div class="col">
+      {{product.price}}
+    </div>
+    <div>
+      <a href="/admin/product/edit/{{product.id}}" class="btn btn-sm">Edit</a>
+    </div>
+  </div>
+</div>
+
+<ngb-pagination (pageChange)="onPageChange($event)" [(page)]="listoptions.page" [collectionSize]="listoptions.count" [pageSize]="listoptions.pageSize"></ngb-pagination>
