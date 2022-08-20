@@ -31,9 +31,7 @@ namespace BTest.Infrastructure.Database.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreateUTC")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("DateTime")
-                        .HasDefaultValueSql("GetUtcDate()");
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,6 +42,9 @@ namespace BTest.Infrastructure.Database.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("UpdateUTC")
+                        .HasColumnType("DateTime");
 
                     b.HasKey("Id");
 
@@ -64,6 +65,9 @@ namespace BTest.Infrastructure.Database.Migrations
                     b.Property<decimal>("TotalValue")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdateUTC")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -98,6 +102,9 @@ namespace BTest.Infrastructure.Database.Migrations
                     b.Property<decimal>("UnitPrice")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdateUTC")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -147,6 +154,9 @@ namespace BTest.Infrastructure.Database.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<DateTime>("UpdateUTC")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -171,6 +181,9 @@ namespace BTest.Infrastructure.Database.Migrations
                     b.Property<decimal>("Quantity")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdateUTC")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -457,7 +470,7 @@ namespace BTest.Infrastructure.Database.Migrations
                         .IsRequired();
 
                     b.HasOne("BTest.Infrastructure.Identity.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("UserOrders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -535,6 +548,11 @@ namespace BTest.Infrastructure.Database.Migrations
                     b.Navigation("OrderDetail");
 
                     b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("BTest.Infrastructure.Identity.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("UserOrders");
                 });
 #pragma warning restore 612, 618
         }

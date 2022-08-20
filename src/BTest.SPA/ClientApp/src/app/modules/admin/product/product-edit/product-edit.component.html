@@ -7,6 +7,17 @@
         <div class="col-6">
           Product Id: {{productId}}
           <div class="col-md-12">
+            <label class="form-label" for="id_categoryId">Category</label>
+            <select [class.is-invalid]="productForm.value.categoryId.touched && productForm.value.invalid"
+                    class="form-select"
+                   formControlName="categoryId" id="id_categoryId" type="text">
+              <option *ngFor="let c of categories" [value]="c.id" >{{c.name}}</option>
+            </select>
+            <div *ngIf="productForm.value.invalid && productForm.value.touched">
+              <div *ngIf="productForm.value.errors?.required" class="d-block invalid-feedback">Please provide a Category.</div>
+            </div>
+          </div>
+          <div class="col-md-12">
             <label class="form-label" for="id_name">Name</label>
             <input [class.is-invalid]="productForm.value.name.touched && productForm.value.invalid"
                    class="form-control"
@@ -27,16 +38,21 @@
         <div class="col-6">
           <div class="row">
             <div class="col-md-12">
-              <img [src]="getImageBase64()" style="max-width: 100%;">
+              <img #img [src]="getImageBase64()" style="max-width: 100%;">
               <input (change)="onFileSelected($event)" accept="*.jpb,*.png" id="productImageFile" type="file">
+              <p > {{img.naturalWidth}}x{{img.naturalHeight}}              </p>
+
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="card-footer">
-      <button class="btn btn-primary">Save</button>
+      <button class="btn btn-primary" (click)="save()">Save</button>
     </div>
   </div>
 
 </form>
+<pre style="max-height: 200px;overflow: hidden">
+{{productForm.value | json}}
+  </pre>

@@ -17,6 +17,8 @@ public class MappingProfiles : Profile
       .ForMember(dst => dst.Quantity, opt => opt.MapFrom(
         src => src.Stock != null ? src.Stock.Quantity : 0));
 
+    CreateMap<ProductDTO, Product>();
+
     CreateMap<OrderDTO, Order>();
     CreateMap<Order, OrderDTO>();
 

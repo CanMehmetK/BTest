@@ -61,7 +61,8 @@ namespace BTest.Infrastructure.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Slug = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CreateUTC = table.Column<DateTime>(type: "DateTime", nullable: false, defaultValueSql: "GetUtcDate()")
+                    CreateUTC = table.Column<DateTime>(type: "DateTime", nullable: false),
+                    UpdateUTC = table.Column<DateTime>(type: "DateTime", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -75,7 +76,8 @@ namespace BTest.Infrastructure.Database.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TotalValue = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
-                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -200,7 +202,8 @@ namespace BTest.Infrastructure.Database.Migrations
                     Price = table.Column<decimal>(type: "decimal(16,4)", precision: 16, scale: 4, nullable: false),
                     Image = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreateUTC = table.Column<DateTime>(type: "DateTime", nullable: false, defaultValueSql: "GetUtcDate()")
+                    CreateUTC = table.Column<DateTime>(type: "DateTime", nullable: false, defaultValueSql: "GetUtcDate()"),
+                    UpdateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,7 +251,8 @@ namespace BTest.Infrastructure.Database.Migrations
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -275,7 +279,8 @@ namespace BTest.Infrastructure.Database.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CreateUTC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateUTC = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

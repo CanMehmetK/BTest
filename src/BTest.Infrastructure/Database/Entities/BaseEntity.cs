@@ -5,4 +5,5 @@ public abstract class BaseEntity
 {
   public int Id { get; set; }
   public DateTime CreateUTC { get; set; }
+  public DateTime UpdateUTC { get; set; }
 }

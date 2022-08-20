@@ -1,6 +1,8 @@
 ﻿using BTest.Infrastructure;
 using BTest.Infrastructure.Identity;
 using BTest.Infrastructure.Database.Seed;
+using Microsoft.Extensions.FileProviders;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,10 @@ if (!app.Environment.IsDevelopment())
 
 app.UseCors("corsapp");
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+  FileProvider = new PhysicalFileProvider(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot"))
+});
 app.UseRouting();
 
 

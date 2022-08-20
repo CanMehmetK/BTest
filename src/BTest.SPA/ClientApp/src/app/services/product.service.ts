@@ -37,19 +37,20 @@ export class ProductService {
       }))
   }
 
-  getItems(page: number, pageSize: number, filter: Filter): Observable<ProductPayload> {
+  getItems(page: any, pageSize: any, filter: Filter): Observable<ProductPayload> {
     let params = new HttpParams();
 
-    params.set("pageNumber", page.toString())
-    params.set("pageSize", pageSize.toString());
+    params = params.append("pageNumber", page)
+    params = params.append("pageSize", pageSize);
 
-    if (filter && filter.name)
-      params.set("name", filter.name)
-    if (filter && filter.categories)
-      filter.categories.forEach(id => {
-        params = params.append("categories", id)
-      });
-
+    if (filter) {
+      if (filter.name)
+        params.set("name", filter.name)
+      if (filter.categories)
+        filter.categories.forEach(id => {
+          params = params.append("categories", id)
+        });
+    }
     return this.http.get<ProductPayload>('api/store/products', {params: params})
   }
 

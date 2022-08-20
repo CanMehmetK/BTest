@@ -7,7 +7,7 @@ namespace BTest.Infrastructure.Database;
 
 public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
 {
-  public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
+  public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : base(options)
   {
   }
@@ -16,6 +16,37 @@ public partial class ApplicationDbContext : IdentityDbContext<ApplicationUser, A
     base.OnModelCreating(builder);
     // TypeConfigs...
     builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+  }
+  public override int SaveChanges()
+  {
+    setDates();
+
+    return base.SaveChanges();
+  }
+  public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+  {
+    setDates();
+    return base.SaveChangesAsync(cancellationToken);
+  }
+
+  private void setDates()
+  {
+    var entries = ChangeTracker
+    .Entries()
+    .Where(e => e.Entity is BaseEntity && (
+            e.State == EntityState.Added
+            || e.State == EntityState.Modified));
+
+    foreach (var entityEntry in entries)
+    {
+      ((BaseEntity)entityEntry.Entity).UpdateUTC = DateTime.UtcNow;
+
+      if (entityEntry.State == EntityState.Added)
+      {
+        ((BaseEntity)entityEntry.Entity).CreateUTC = DateTime.UtcNow;
+      }
+    }
+
   }
 
   public DbSet<Product> Products { get; set; }

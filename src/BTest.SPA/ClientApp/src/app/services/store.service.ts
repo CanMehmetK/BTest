@@ -157,4 +157,12 @@ export class StoreService {
       this._myOrders.next(response.data);
       })
   }
+
+  createProduct(productDto: any):Observable<number> {
+    return this._httpClient.post<number>('api/store/create-product', productDto);
+  }
+
+  updateProduct(productDto: any) {
+    return this._httpClient.post<number>('api/store/update-product', productDto);
+  }
 }

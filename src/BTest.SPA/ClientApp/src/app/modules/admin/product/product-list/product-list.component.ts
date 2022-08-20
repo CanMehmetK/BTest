@@ -17,7 +17,7 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.listoptions.pageSize = 10;
+    this.listoptions.pageSize = 5;
     this.listoptions.page = 1;
     this.getProducts();
   }

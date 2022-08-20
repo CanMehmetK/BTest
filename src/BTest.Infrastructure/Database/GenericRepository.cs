@@ -22,6 +22,7 @@ public interface IGenericRepository<T> where T : BaseEntity
   bool BulkInsert(List<T> entities);
   T Update(T entity);
   int Delete(T entity);
+  Task<T> UpdateAsync(T product);
 }
 
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
@@ -81,7 +82,16 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     _context.SaveChanges();
     return entity;
   }
+  public async Task<T> UpdateAsync(T entity)
+  {
+    if (entity == null)
+      return null;
+    _context.Set<T>().Attach(entity);
+    _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+    await _context.SaveChangesAsync();
+    return entity;
+  }
 
-  
+
 }
 

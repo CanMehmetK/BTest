@@ -9,4 +9,6 @@ public interface IStoreService
   Task<Payload<ProductDTO>> GetProducts(ProductQueryStringParameter qsParameter);
   Task<OrderDTO> CreateOrder(ClaimsPrincipal User, OrderDTO orderDto);
   Task<List<OrderDTO>> MyOrders(ClaimsPrincipal User, OrderFilterDTO orderFilterDto);
+  Task<int> CreateProduct(ProductDTO productDTO);
+  Task<int> UpdateProduct(ProductDTO productDTO);
 }

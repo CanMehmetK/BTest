@@ -34,51 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\images\products\3be497f0-d56c-4721-b779-3e873fc369c7_1024xauto.jpg">
+    <Content Update="wwwroot\**\*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Update="wwwroot\images\products\apples.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\bananas.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\black shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\blue shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\da70cd13-f7cb-4b01-b8e4-15958ca34e0a_06d98a173f45262b0fc78755d9c3fd9e.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\grapefruit.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\grapes.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\grey shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\kiwi.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\noimage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\pink shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\watermelon.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\white shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\images\products\yellow shirt.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

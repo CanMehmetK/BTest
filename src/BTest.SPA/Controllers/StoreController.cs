@@ -39,4 +39,14 @@ public class StoreController : ControllerBase
   [HttpPost("my-orders")]
   public async Task<BaseResponse<List<OrderDTO>>> MyOrders([FromBody] OrderFilterDTO orderFilterDto) =>
       new BaseResponse<List<OrderDTO>>(await _storeService.MyOrders(User, orderFilterDto));
+
+  [Authorize(Roles ="Admin,SuperAdmin")]
+  [HttpPost("create-product")]
+  public async Task<BaseResponse<int>> CreateProduct([FromBody] ProductDTO productDTO) =>
+      new BaseResponse<int>(await _storeService.CreateProduct(productDTO));
+
+  [Authorize(Roles = "Admin,SuperAdmin")]
+  [HttpPost("update-product")]
+  public async Task<BaseResponse<int>> UpdateProduct([FromBody] ProductDTO productDTO) =>
+      new BaseResponse<int>(await _storeService.UpdateProduct(productDTO));
 }

@@ -16,7 +16,7 @@ export class AuthService {
 
   get loggedIn(): boolean {
     const accessToken = localStorage.getItem('accessToken');
-    return ( accessToken != undefined && accessToken != '' && accessToken !=null);
+    return (accessToken && accessToken != undefined && accessToken != '' && accessToken != null);
   }
 
   get accessToken(): string {
@@ -34,6 +34,20 @@ export class AuthService {
 
   set refreshToken(refreshToken: string) {
     localStorage.setItem('refreshToken', refreshToken);
+  }
+
+  get roles(): string[] {
+    const token = this.accessToken;
+    if (token) {
+      return AuthUtils.roles(token);
+    }
+    return [];
+  }
+
+  get isAdmin(): boolean {
+    const adminRoles = ['SuperAdmin', 'Admin'];
+    return this.roles && this.roles.length > 0 && this.roles.filter(t => adminRoles.includes(t)).length > 0
+
   }
 
   forgotPassword(email: string): Observable<any> {
@@ -78,7 +92,7 @@ export class AuthService {
     // Renew token
     return this._httpClient.post('api/auth/refresh-token', {
       accessToken: this.accessToken,
-      refreshToken : this.refreshToken
+      refreshToken: this.refreshToken
     }).pipe(
       catchError(() =>
         // Return false
@@ -124,8 +138,7 @@ export class AuthService {
   }
 
 
-  check(roles:string[]=undefined): Observable<boolean> {
-    console.log(roles)
+  check(roles: string[] = undefined): Observable<boolean> {
     // Check if the user is logged in
     if (this._authenticated) {
       return of(true);

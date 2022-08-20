@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Reflection;
+using System.Security.Claims;
 using AutoMapper;
 using BTest.Infrastructure.Database;
 using BTest.Infrastructure.Database.Entities;
@@ -9,6 +10,7 @@ namespace BTest.Infrastructure.Store;
 
 public class StoreService : IStoreService
 {
+  public static string ProductImagePath => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "wwwroot", "images", "products");
   private readonly IMapper _mapper;
   private readonly IGenericRepository<Category> _crepository;
   private readonly IGenericRepository<Product> _prepository;
@@ -87,4 +89,47 @@ public class StoreService : IStoreService
     var result = _mapper.Map<List<Order>, List<OrderDTO>>(await query.ToListAsync());
     return result;
   }
+
+  public async Task<int> CreateProduct(ProductDTO productDTO)
+  {
+    var fileName = "noimage.png";
+    var imageData = productDTO.Image.Contains(";base64,") ? productDTO.Image.Split(";base64,")[1] : null;
+    if (imageData != null && imageData.Length > 0)
+    {
+      fileName = Guid.NewGuid().ToString() + ".jpg";
+      var streamData = new MemoryStream(Convert.FromBase64String(imageData));
+      using var stream = new FileStream(Path.Combine(ProductImagePath, fileName), FileMode.Create);
+      await streamData.CopyToAsync(stream);
+
+    }
+    productDTO.Image = fileName;
+
+    var product = await _prepository.InsertAsync(_mapper.Map<Product>(productDTO));
+    return product.Id;
+  }
+
+  public async Task<int> UpdateProduct(ProductDTO productDTO)
+  {
+    Product product = await _prepository.context.Products.AsNoTracking()
+      .FirstAsync(item => item.Id == productDTO.Id);
+    
+    var fileName = "noimage.png";
+    var imageData = productDTO.Image.Contains(";base64,") ? productDTO.Image.Split(";base64,")[1] : null;
+    if (imageData != null && imageData.Length > 0)
+    {
+      fileName = product.Image == "noimage.png" ? Guid.NewGuid().ToString() + ".jpg" : product.Image;
+      var streamData = new MemoryStream(Convert.FromBase64String(imageData));
+      using var stream = new FileStream(Path.Combine(ProductImagePath, fileName), FileMode.Create);
+      await streamData.CopyToAsync(stream);
+
+    }
+    productDTO.Image = fileName;
+    var m = _mapper.Map<Product>(productDTO);
+    m.CreateUTC = product.CreateUTC;
+    m.UpdateUTC = product.UpdateUTC;
+    var uproduct = await _prepository.UpdateAsync(m);
+    return uproduct.Id;
+  }
+
+
 }
